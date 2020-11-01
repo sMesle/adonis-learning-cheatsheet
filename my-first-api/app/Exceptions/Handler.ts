@@ -20,4 +20,10 @@ export default class ExceptionHandler extends HttpExceptionHandler {
   constructor() {
     super(Logger)
   }
+  public async handle(error, ctx) {
+    if (error.code === 'E_ROW_NOT_FOUND') {
+      return ctx.response.status(404).send('This element could not be found')
+    }
+    return super.handle(error, ctx)
+  }
 }
