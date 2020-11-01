@@ -71,3 +71,13 @@ This options can be shortened with (`-m` and `-c` flag respectively)
 
 - Do the migrations in the good order, basically model after model that depends on each other
 - In the controller, we do not need create and edit for an API because they are used to send a form
+
+# Migrations
+
+### Links
+
+- [Knex Documentation : Schema Builder](http://knexjs.org/#Schema)
+
+### Adding columns
+
+To add different columns, edit your migration file in the `up` function and follow the knex documentation on schema builder.
