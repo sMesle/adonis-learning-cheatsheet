@@ -2,9 +2,19 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Customer from 'App/Models/Customer'
 
 export default class CustomersController {
-  public async index({ response }: HttpContextContract) {
-    const customer = await Customer.all()
-    response.ok(customer)
+  public async index({}: HttpContextContract) {
+    const customers = await Customer.query().preload('projects')
+    return customers.map((customers) =>
+      customers.serialize({
+        relations: {
+          projects: {
+            fields: {
+              omit: ['customer_id'],
+            },
+          },
+        },
+      })
+    )
   }
 
   public async store({ request, response }: HttpContextContract) {
@@ -18,8 +28,10 @@ export default class CustomersController {
     response.ok(customer) */
 
     // Another simple way to save
-    const customerData = request.only(['name', 'description'])
+    const customerData = request.all()
     const customer = await Customer.create(customerData)
+    /* const { project } = request.post()
+    await customer.related('projects').create(project) */
     response.created(customer)
   }
 

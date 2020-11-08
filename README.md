@@ -81,3 +81,21 @@ This options can be shortened with (`-m` and `-c` flag respectively)
 ### Adding columns
 
 To add different columns, edit your migration file in the `up` function and follow the knex documentation on schema builder.
+
+# Query the Database
+
+### Links
+
+- [QueryBuilder](https://preview.adonisjs.com/guides/database/query-builder)
+- [Lucid](https://preview.adonisjs.com/guides/models/crud-operations)
+
+# Grouping routes
+
+Routes can be grouped like this example :
+
+```js
+Route.group(() => {
+  // One liner to basic CRUD operations
+  Route.ressource('customers', 'CustomersController').apiOnly(); //  remove uneccessary route for api such as create and edit
+}).prefix('api/v1'); // 'api/v1' is added to the url
+```

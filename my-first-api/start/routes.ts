@@ -25,12 +25,13 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
-// Customer
-Route.get('customers', 'CustomersController.index')
-Route.post('customer', 'CustomersController.store')
-Route.get('customers/:id', 'CustomersController.show')
-Route.put('customers/:id', 'CustomersController.update')
-Route.delete('customers/:id', 'CustomersController.destroy')
+// API
+Route.group(() => {
+  // Customers
+  Route.resource('customers', 'CustomersController').apiOnly()
+  // Projects
+  Route.resource('projects', 'ProjectsController').apiOnly()
+}).prefix('api/v1')
 
 // Database
 Route.get('/db/health', async ({ response }) => {
